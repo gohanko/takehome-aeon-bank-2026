@@ -3,11 +3,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { TransactionTable } from '../components/organisms/transaction-table'
 
 // Mock the fetchWithAuth utility
-vi.mock('../utils/api', () => ({
+vi.mock('../utilities/api', () => ({
     fetchWithAuth: vi.fn()
 }))
 
-import { fetchWithAuth } from '../utils/api'
+import { fetchWithAuth } from '../utilities/api'
 
 describe('TransactionTable Component', () => {
     beforeEach(() => {

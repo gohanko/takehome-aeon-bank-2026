@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { hashPassword } from '../utils/crypto'
+import { hashPassword } from '../utilities/crypto'
 
 describe('Crypto Utility', () => {
     it('generates consistent hashes for the same password', async () => {

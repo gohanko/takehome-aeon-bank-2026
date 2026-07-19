@@ -7,7 +7,7 @@ import { Heading } from "@/components/atoms/heading";
 import { FormField } from "@/components/molecules/form-field";
 import { MfaInput } from "@/components/molecules/mfa-input";
 import { SecureWordDisplay } from "@/components/molecules/secure-word-display";
-import { hashPassword } from "@/utils/crypto";
+import { hashPassword } from "@/utilities/crypto";
 import { useAuth } from "@/hooks/useAuth";
 
 type Step = "email" | "password" | "mfa";

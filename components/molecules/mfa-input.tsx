@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Input } from "../atoms/input";
-import { cn } from "@/utils/cn";
+import { cn } from "@/utilities/cn";
 
 interface MfaInputProps {
     length?: number;

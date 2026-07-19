@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import Transactions from '../app/dashboard/transactions/page'
-import { AuthContext } from '../components/providers/AuthProvider'
+import { AuthContext } from '../providers/AuthProvider'
 
 // Mock useRouter
 const mockPush = vi.fn();

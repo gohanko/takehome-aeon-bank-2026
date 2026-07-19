@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@/utils/cn";
+import { cn } from "@/utilities/cn";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: "primary" | "secondary" | "danger" | "outline";

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { LoginForm } from '../components/organisms/login-form'
-import { AuthContext } from '../components/providers/AuthProvider'
+import { AuthContext } from '../providers/AuthProvider'
 
 const mockPush = vi.fn();
 vi.mock('next/navigation', () => ({
