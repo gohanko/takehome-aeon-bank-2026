@@ -25,11 +25,20 @@ export async function POST(request: Request) {
 
         // For testing, accept "123456" as the valid MFA code
         if (code !== "123456") {
-            attemptsMap.set(email, attempts + 1);
+            const newAttempts = attempts + 1;
+            attemptsMap.set(email, newAttempts);
+
+            if (newAttempts >= 3) {
+                return NextResponse.json(
+                    { error: "Account locked due to 3 failed attempts." },
+                    { status: 403 }
+                );
+            }
+
             return NextResponse.json(
                 {
                     error: "Invalid code",
-                    attemptsLeft: 3 - (attempts + 1),
+                    attemptsLeft: 3 - newAttempts,
                 },
                 { status: 400 }
             );
