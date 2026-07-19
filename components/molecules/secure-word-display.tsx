@@ -7,7 +7,11 @@ interface SecureWordDisplayProps {
     onExpire: () => void;
 }
 
-export const SecureWordDisplay = ({ word, expiresIn, onExpire }: SecureWordDisplayProps) => {
+export const SecureWordDisplay = ({
+    word,
+    expiresIn,
+    onExpire,
+}: SecureWordDisplayProps) => {
     const [secondsLeft, setSecondsLeft] = React.useState(expiresIn);
 
     React.useEffect(() => {
@@ -24,10 +28,12 @@ export const SecureWordDisplay = ({ word, expiresIn, onExpire }: SecureWordDispl
     }, [secondsLeft, onExpire]);
 
     return (
-        <div className="p-4 bg-blue-50 border border-blue-200 rounded-md flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-2 rounded-md border border-blue-200 bg-blue-50 p-4">
             <p className="text-sm text-blue-800">Your secure word is:</p>
-            <p className="text-2xl font-bold tracking-widest text-blue-900">{word}</p>
-            <div className="text-sm text-blue-700 flex items-center gap-1">
+            <p className="text-2xl font-bold tracking-widest text-blue-900">
+                {word}
+            </p>
+            <div className="flex items-center gap-1 text-sm text-blue-700">
                 Expires in: <Countdown secondsLeft={secondsLeft} />
             </div>
         </div>

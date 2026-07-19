@@ -14,5 +14,9 @@ export default function Root() {
         }
     }, [router]);
 
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return (
+        <div className="flex min-h-screen items-center justify-center">
+            Loading...
+        </div>
+    );
 }

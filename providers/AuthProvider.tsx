@@ -14,13 +14,15 @@ interface AuthContextType {
     isInitializing: boolean;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+    undefined
+);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [token, setToken] = useState<string | null>(null);
     const [role, setRole] = useState<Role>(null);
     const [isInitializing, setIsInitializing] = useState(true);
-    
+
     const router = useRouter();
 
     useEffect(() => {
@@ -49,9 +51,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setRole(null);
         router.push("/authentication/login");
     };
-    
+
     return (
-        <AuthContext.Provider value={{ token, role, login, logout, isAuthenticated: !!token, isInitializing }}>
+        <AuthContext.Provider
+            value={{
+                token,
+                role,
+                login,
+                logout,
+                isAuthenticated: !!token,
+                isInitializing,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );

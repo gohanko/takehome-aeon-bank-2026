@@ -10,25 +10,29 @@ interface IdleWarningModalProps {
     onContinue: () => void;
 }
 
-export const IdleWarningModal = ({ isOpen, onContinue }: IdleWarningModalProps) => {
+export const IdleWarningModal = ({
+    isOpen,
+    onContinue,
+}: IdleWarningModalProps) => {
     const { logout } = useAuth();
 
     if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-xl animate-in fade-in zoom-in-95">
-                <Heading level={3} className="text-gray-900 mb-2">Session Expiring</Heading>
-                <p className="text-gray-600 mb-6 text-sm">
-                    You have been idle for a while. You will be automatically logged out soon to protect your account.
+            <div className="animate-in fade-in zoom-in-95 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
+                <Heading level={3} className="mb-2 text-gray-900">
+                    Session Expiring
+                </Heading>
+                <p className="mb-6 text-sm text-gray-600">
+                    You have been idle for a while. You will be automatically
+                    logged out soon to protect your account.
                 </p>
-                <div className="flex gap-3 justify-end">
+                <div className="flex justify-end gap-3">
                     <Button variant="outline" onClick={logout}>
                         Logout Now
                     </Button>
-                    <Button onClick={onContinue}>
-                        Continue Session
-                    </Button>
+                    <Button onClick={onContinue}>Continue Session</Button>
                 </div>
             </div>
         </div>

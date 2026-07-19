@@ -12,16 +12,22 @@ interface FormFieldProps extends InputProps {
 export const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
     ({ label, error, containerClassName, id, className, ...props }, ref) => {
         const inputId = id || React.useId();
-        
+
         return (
             <div className={cn("space-y-2", containerClassName)}>
-                <Label htmlFor={inputId} className={error ? "text-red-500" : ""}>
+                <Label
+                    htmlFor={inputId}
+                    className={error ? "text-red-500" : ""}
+                >
                     {label}
                 </Label>
                 <Input
                     id={inputId}
                     ref={ref}
-                    className={cn(error && "border-red-500 focus:ring-red-500", className)}
+                    className={cn(
+                        error && "border-red-500 focus:ring-red-500",
+                        className
+                    )}
                     {...props}
                 />
                 {error && (

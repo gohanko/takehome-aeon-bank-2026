@@ -1,12 +1,3 @@
+type TInputField = {};
 
-type TInputField = {
-
-}
-
-export const InputField = ({
-
-}: TInputField) => (
-    <div>
-        
-    </div>
-)
+export const InputField = ({}: TInputField) => <div></div>;

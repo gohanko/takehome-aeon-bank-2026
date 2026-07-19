@@ -33,7 +33,7 @@ export const LoginForm = () => {
             const res = await fetch("/api/getSecureWord", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email })
+                body: JSON.stringify({ email }),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Failed");
@@ -56,7 +56,7 @@ export const LoginForm = () => {
             const res = await fetch("/api/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, passwordHash, secureWord })
+                body: JSON.stringify({ email, passwordHash, secureWord }),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Failed");
@@ -77,14 +77,16 @@ export const LoginForm = () => {
             const res = await fetch("/api/verifyMfa", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, code })
+                body: JSON.stringify({ email, code }),
             });
             const data = await res.json();
             if (!res.ok) {
                 if (res.status === 403) {
                     throw new Error(data.error);
                 }
-                throw new Error(`${data.error}. Attempts left: ${data.attemptsLeft}`);
+                throw new Error(
+                    `${data.error}. Attempts left: ${data.attemptsLeft}`
+                );
             }
 
             router.push("/dashboard/overview");
@@ -107,10 +109,12 @@ export const LoginForm = () => {
     };
 
     return (
-        <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+        <div className="w-full max-w-md rounded-xl border border-gray-100 bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
             <div className="mb-8 text-center">
                 <Heading level={2}>AEON Bank</Heading>
-                <p className="text-gray-500 mt-2 text-sm">Secure Banking Portal</p>
+                <p className="mt-2 text-sm text-gray-500">
+                    Secure Banking Portal
+                </p>
             </div>
 
             {step === "email" && (
@@ -124,7 +128,11 @@ export const LoginForm = () => {
                         required
                         error={error}
                     />
-                    <Button type="submit" className="w-full" disabled={isLoading}>
+                    <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={isLoading}
+                    >
                         {isLoading ? "Proceeding..." : "Next"}
                     </Button>
                 </form>
@@ -132,7 +140,11 @@ export const LoginForm = () => {
 
             {step === "password" && (
                 <form onSubmit={handlePasswordSubmit} className="space-y-6">
-                    <SecureWordDisplay word={secureWord} expiresIn={60} onExpire={handleExpire} />
+                    <SecureWordDisplay
+                        word={secureWord}
+                        expiresIn={60}
+                        onExpire={handleExpire}
+                    />
 
                     <FormField
                         label="Password"
@@ -144,10 +156,19 @@ export const LoginForm = () => {
                         error={error}
                     />
                     <div className="flex gap-3">
-                        <Button type="button" variant="outline" className="w-full" onClick={() => setStep("email")}>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full"
+                            onClick={() => setStep("email")}
+                        >
                             Back
                         </Button>
-                        <Button type="submit" className="w-full" disabled={isLoading}>
+                        <Button
+                            type="submit"
+                            className="w-full"
+                            disabled={isLoading}
+                        >
                             {isLoading ? "Logging in..." : "Login"}
                         </Button>
                     </div>
@@ -157,15 +178,22 @@ export const LoginForm = () => {
             {step === "mfa" && (
                 <div className="space-y-6 text-center">
                     <div>
-                        <Heading level={4} className="mb-2">Two-Factor Authentication</Heading>
+                        <Heading level={4} className="mb-2">
+                            Two-Factor Authentication
+                        </Heading>
                         <p className="text-sm text-gray-500">
-                            Enter the 6-digit code sent to your device. (Mock code: 123456)
+                            Enter the 6-digit code sent to your device. (Mock
+                            code: 123456)
                         </p>
                     </div>
 
                     <MfaInput onComplete={handleMfaComplete} error={mfaError} />
 
-                    {isLoading && <p className="text-sm text-gray-500 mt-4">Verifying...</p>}
+                    {isLoading && (
+                        <p className="mt-4 text-sm text-gray-500">
+                            Verifying...
+                        </p>
+                    )}
                 </div>
             )}
         </div>

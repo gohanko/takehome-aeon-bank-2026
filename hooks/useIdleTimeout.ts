@@ -11,11 +11,11 @@ export function useIdleTimeout(
     const [isIdle, setIsIdle] = useState(false);
     const warningRef = useRef<NodeJS.Timeout | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    
+
     // Use refs to keep callbacks fresh without restarting timers
     const onWarningRef = useRef(onWarning);
     const onTimeoutRef = useRef(onTimeout);
-    
+
     useEffect(() => {
         onWarningRef.current = onWarning;
         onTimeoutRef.current = onTimeout;
@@ -37,20 +37,30 @@ export function useIdleTimeout(
     }, [warningTimeMs, logoutTimeMs]);
 
     useEffect(() => {
-        const events = ["mousemove", "keydown", "mousedown", "touchstart", "scroll"];
-        
+        const events = [
+            "mousemove",
+            "keydown",
+            "mousedown",
+            "touchstart",
+            "scroll",
+        ];
+
         const handleActivity = () => {
             if (!isIdle) {
                 resetTimers();
             }
         };
 
-        events.forEach((event) => window.addEventListener(event, handleActivity));
-        
+        events.forEach((event) =>
+            window.addEventListener(event, handleActivity)
+        );
+
         resetTimers();
 
         return () => {
-            events.forEach((event) => window.removeEventListener(event, handleActivity));
+            events.forEach((event) =>
+                window.removeEventListener(event, handleActivity)
+            );
             if (warningRef.current) clearTimeout(warningRef.current);
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
         };

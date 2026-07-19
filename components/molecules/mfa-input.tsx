@@ -12,7 +12,10 @@ export const MfaInput = ({ length = 6, onComplete, error }: MfaInputProps) => {
     const [code, setCode] = React.useState<string[]>(Array(length).fill(""));
     const inputRefs = React.useRef<(HTMLInputElement | null)[]>([]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        index: number
+    ) => {
         const value = e.target.value;
         if (!/^[0-9]*$/.test(value)) return;
 
@@ -32,7 +35,10 @@ export const MfaInput = ({ length = 6, onComplete, error }: MfaInputProps) => {
         }
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    const handleKeyDown = (
+        e: React.KeyboardEvent<HTMLInputElement>,
+        index: number
+    ) => {
         if (e.key === "Backspace" && !code[index] && index > 0) {
             inputRefs.current[index - 1]?.focus();
         }
@@ -40,11 +46,13 @@ export const MfaInput = ({ length = 6, onComplete, error }: MfaInputProps) => {
 
     return (
         <div className="space-y-2">
-            <div className="flex gap-2 justify-between">
+            <div className="flex justify-between gap-2">
                 {code.map((digit, index) => (
                     <Input
                         key={index}
-                        ref={(el) => { inputRefs.current[index] = el; }}
+                        ref={(el) => {
+                            inputRefs.current[index] = el;
+                        }}
                         type="text"
                         inputMode="numeric"
                         maxLength={1}
@@ -52,14 +60,16 @@ export const MfaInput = ({ length = 6, onComplete, error }: MfaInputProps) => {
                         onChange={(e) => handleChange(e, index)}
                         onKeyDown={(e) => handleKeyDown(e, index)}
                         className={cn(
-                            "w-12 h-14 text-center text-xl sm:w-14 sm:h-16",
+                            "h-14 w-12 text-center text-xl sm:h-16 sm:w-14",
                             error && "border-red-500 focus:ring-red-500"
                         )}
                     />
                 ))}
             </div>
             {error && (
-                <p className="text-sm font-medium text-red-500 text-center">{error}</p>
+                <p className="text-center text-sm font-medium text-red-500">
+                    {error}
+                </p>
             )}
         </div>
     );

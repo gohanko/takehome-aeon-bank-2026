@@ -15,7 +15,11 @@ export default function Transactions() {
     }, [role, isInitializing, router]);
 
     if (isInitializing || role === "viewer") {
-        return <div className="p-8 flex items-center justify-center text-gray-500">Checking permissions...</div>;
+        return (
+            <div className="flex items-center justify-center p-8 text-gray-500">
+                Checking permissions...
+            </div>
+        );
     }
 
     return <TransactionsPage />;
