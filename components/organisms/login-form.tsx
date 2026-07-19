@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "../atoms/Button";
-import { Heading } from "../atoms/heading";
-import { FormField } from "../molecules/form-field";
-import { MfaInput } from "../molecules/mfa-input";
-import { SecureWordDisplay } from "../molecules/secure-word-display";
+import { Button } from "@/components/atoms/button";
+import { Heading } from "@/components/atoms/heading";
+import { FormField } from "@/components/molecules/form-field";
+import { MfaInput } from "@/components/molecules/mfa-input";
+import { SecureWordDisplay } from "@/components/molecules/secure-word-display";
 import { hashPassword } from "@/utils/crypto";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -15,12 +15,12 @@ type Step = "email" | "password" | "mfa";
 export const LoginForm = () => {
     const router = useRouter();
     const { login } = useAuth();
-    
+
     const [step, setStep] = React.useState<Step>("email");
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [secureWord, setSecureWord] = React.useState("");
-    
+
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState("");
     const [mfaError, setMfaError] = React.useState("");
@@ -37,7 +37,7 @@ export const LoginForm = () => {
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Failed");
-            
+
             setSecureWord(data.secureWord);
             setStep("password");
         } catch (err: any) {
@@ -60,7 +60,7 @@ export const LoginForm = () => {
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Failed");
-            
+
             login(data.token, data.role);
             setStep("mfa");
         } catch (err: any) {
@@ -86,7 +86,7 @@ export const LoginForm = () => {
                 }
                 throw new Error(`${data.error}. Attempts left: ${data.attemptsLeft}`);
             }
-            
+
             router.push("/dashboard/overview");
         } catch (err: any) {
             setMfaError(err.message);
@@ -133,7 +133,7 @@ export const LoginForm = () => {
             {step === "password" && (
                 <form onSubmit={handlePasswordSubmit} className="space-y-6">
                     <SecureWordDisplay word={secureWord} expiresIn={60} onExpire={handleExpire} />
-                    
+
                     <FormField
                         label="Password"
                         type="password"
@@ -162,9 +162,9 @@ export const LoginForm = () => {
                             Enter the 6-digit code sent to your device. (Mock code: 123456)
                         </p>
                     </div>
-                    
+
                     <MfaInput onComplete={handleMfaComplete} error={mfaError} />
-                    
+
                     {isLoading && <p className="text-sm text-gray-500 mt-4">Verifying...</p>}
                 </div>
             )}

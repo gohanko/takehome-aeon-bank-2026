@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "../atoms/Button";
-import { Heading } from "../atoms/heading";
+import { Button } from "@/components/atoms/button";
+import { Heading } from "@/components/atoms/heading";
 import { useAuth } from "@/hooks/useAuth";
 
 interface IdleWarningModalProps {
