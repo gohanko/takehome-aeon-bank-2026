@@ -1,6 +1,5 @@
-const Page = () => (
-    <>
-    </>
-)
+import { LoginPage } from "@/components/pages/login-page";
 
-export default Page;
+export default function Login() {
+    return <LoginPage />;
+}

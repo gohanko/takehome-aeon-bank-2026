@@ -1,5 +1,18 @@
-const Root = () => (
-    <></>
-)
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default Root;
+export default function Root() {
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            router.push("/dashboard/overview");
+        } else {
+            router.push("/authentication/login");
+        }
+    }, [router]);
+
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+}
